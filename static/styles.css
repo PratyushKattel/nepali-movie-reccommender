@@ -1,0 +1,17 @@
+*{
+    box-sizing: border-box;
+    background-color: black;
+    color:pink;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    flex:1
+}
+form{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex:1;
+    gap:12px;
+}
