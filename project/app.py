@@ -5,7 +5,8 @@ import pandas as pd
 
 movies_list = pickle.load(open('movies_list.pkl', 'rb'))
 similarity = pickle.load(open('similarity_matrix.pkl', 'rb'))
-
+print(movies_list)
+print(type(movies_list))
 
 movies = pd.DataFrame(movies_list)
 

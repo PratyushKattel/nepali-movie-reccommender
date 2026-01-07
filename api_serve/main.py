@@ -17,7 +17,6 @@ async def lifespan(app: FastAPI):
     print("shutting down....")
 
 app=FastAPI(lifespan=lifespan)
-# templates=Jinja2Templates(directory="templates")
 app.mount("/static",StaticFiles(directory='static'),name="static")
 
 @app.get("/favicon.ico",include_in_schema=False)
@@ -42,7 +41,7 @@ async def handle_form(request:Request,movie_name:str=Form(...)):
     recommended_movies = [df.iloc[i[0]]['movie_name'] for i in movie_indices]  # Fixed column name
     print(recommended_movies)
     return {'message':f"server receives the message {movie_name}",
-            'recommended_movies':f"{recommended_movies}"}
+            'recommended_movies':recommended_movies}
 
 
 
