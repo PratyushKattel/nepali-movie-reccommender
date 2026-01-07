@@ -1,2 +1,46 @@
-To run make sure you have steamlit,pandas and pickle libraries installed
->Execute streamlit run app.py to run
+# Project Name
+
+This project offers two ways to interact with the application: as a **Streamlit Dashboard** or via a **FastAPI File Response** service.
+
+## 🛠 Setup & Installation
+
+Before running either version, install the necessary dependencies for your preferred entry point.
+
+**To run via FastAPI:**
+```bash
+pip install -r api_server/requirements.txt
+```
+**To run via Streamlit;**
+```Bash
+pip install -r requirements.txt
+```
+## 🚀 How to Run
+
+You can choose one of the two methods below. **Important:** Always stay at the project root level to execute these commands.
+
+### Option 1: Run via FastAPI
+Use this method if you want to access the app via a File Response hosted by the API.
+```bash
+# Must be run from the root directory
+fastapi dev api_server/main.py
+```
+
+
+### Option 2: Run via Streamlit
+```bash
+# Must be run from the project directory
+streamlit run app.py
+```
+📂 Project Structure
+
+    api_server/: Contains the FastAPI backend logic and its specific requirements.txt.
+
+    app.py: The main entry point for the Streamlit frontend.
+
+    requirements.txt: Dependencies required specifically for the Streamlit application.
+
+⚠️ Key Reminders
+
+    Directory Level: Do not cd into the api_server folder to run the API. The fastapi dev command expects to be run from the root to correctly map the file paths.
+
+    Dependencies: Ensure you have installed the correct requirements.txt corresponding to the method you choose to run.
