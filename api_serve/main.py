@@ -39,7 +39,7 @@ async def handle_form(request:Request,movie_name:str=Form(...)):
     distances = similarity[index]
     movie_indices = sorted(list(enumerate(distances)), reverse=True, key=lambda x: x[1])[1:6]
     recommended_movies = [df.iloc[i[0]]['movie_name'] for i in movie_indices]  # Fixed column name
-    print(recommended_movies)
+    # print(recommended_movies)
     return {'message':f"server receives the message {movie_name}",
             'recommended_movies':recommended_movies}
 
