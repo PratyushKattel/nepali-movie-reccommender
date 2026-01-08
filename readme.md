@@ -1,6 +1,16 @@
 # Project Name
+A nepali movie reccomender based on cosine similarity, between the casts,actor,directors,genre and description of the movie
 
 This project offers two ways to interact with the application: as a **Streamlit Dashboard** or via a **FastAPI File Response** service.
+
+## Getting Started
+
+You can try out the API without setting anything up locally:
+
+- **API Documentation & Endpoint**:https://nepali-movie-reccommender.onrender.com/docs
+- **Interactive Live Preview**:https://nepali-movie-reccommender.onrender.com/
+
+- Only ~900 movies are inside the table so will only work on some nepali  movies, available movies can be viewed from temp/movies_final.csv
 
 ## 🛠 Setup & Installation
 
