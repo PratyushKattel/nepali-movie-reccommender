@@ -47,3 +47,12 @@ async def handle_form(request:Request,movie_name:str=Form(...)):
 
     # return {"message":f"server receives the message {movie_name}"}
 
+@app.get("/search-movies/")
+async def search_movies(q: str):
+    df=pd.read_parquet("api_serve/movies_list.parquet")
+    if not q:
+        return{"suggestions":[]}
+    matches=df[df['movie_name'].str.contains(q,case=False,na=False)]
+    suggestions=matches['movie_name'].tolist()[:10]
+    return{"suggestions":suggestions}
+
