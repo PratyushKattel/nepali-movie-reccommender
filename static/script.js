@@ -2,6 +2,12 @@ const form=document.querySelector('form')
 const result=document.getElementById('result')
 const ul=document.createElement('ul')
 const ul_id=document.querySelector("#rec-movies")
+const suggestion_div=document.querySelector(".suggestions")
+let currentsuggestions=[]
+const movie_input=document.querySelector('input')
+let selected_item=-1;
+
+// submiting into the /submit endpoint fo the api
 
 form.addEventListener('submit',async (e)=>{
     e.preventDefault();
@@ -25,7 +31,6 @@ if (!response.ok){
 }else{
     result.style.color='green'
     result.innerText="Response was recived "
-    // document.querySelector('.container').append(ul)
     const recommended_movies=data.recommended_movies
     recommended_movies.forEach(movie => {
     const li=document.createElement('li')
@@ -33,7 +38,6 @@ if (!response.ok){
     li.appendChild(textNode);
     ul_id.appendChild(li);
     });
-    // console.log(typeof data.recommended_movies)
 }
 
 
@@ -44,45 +48,81 @@ if (!response.ok){
 
 }
 
-
 }
 )
+// ---submission of form data ends 
+
+// -------Fetching and displaying suggestions as the user types the movie name------
 
 function debounce(func,wait){
     let timeout;
-    console.log("Deboucne funtion created");
-    
-    return function(...args){
-// console.log("Wrapper called with args ",...args)
-        // console.log("Clearing the previous timeout",timeout)
+    return function(...args){   //a wrapper function debounce takes my function and a wait time and transform  it to a function that waits for wait time to be called again
 
         clearTimeout(timeout)
         timeout=setTimeout(()=>{
             func(...args)
         },wait)
-        // console.log("the new timeout is set :",timeout)
     }
 }
 
 async function fetchsuggestion(query){
     try{
-        let response= await fetch(`/search-movies?q=${(query)}`)
+        if (!query || query.length<2){
+            currentsuggestions=[]
+            displaysuggestions([])
+            return;
+        }
+        //fetching suggestions from the /search-movie endpoint
+        const response= await fetch(`/search-movies?q=${(query)}`)
         const data= await response.json()
-        currentsuggestion=data.suggestions
-        console.log(currentsuggestion)
+        currentsuggestions=data.suggestions
+        console.log(currentsuggestions)
+        displaysuggestions(currentsuggestions)
     }
 catch(error){
     console.error("Error in fetching suggestions :",error)
+    currentsuggestions=[]
+    displaysuggestions([])
 }}
 
-function displaysuggetions(suggestions){
-    suggestions.forEach((item)=>{
-        document.querySelector('.suggestions').appendChild(item)
-    })   
-}
+
+function displaysuggestions(suggestions){
+    if( suggestions.length==0){
+        suggestion_div.classList.remove('active')
+        suggestion_div.innerHTML=''
+        return
+    }
+    suggestion_div.innerHTML=suggestions.map((movie,index)=>
+        `<div class="suggested-item" data_index="${index}">${movie}</div>`
+).join('')
+
+    suggestion_div.classList.add('active')
+    suggestionclickhander()
+
+    }
+
+
 const debouncedfetch=debounce(fetchsuggestion,300)
-document.querySelector('input').addEventListener('input',(e)=>{
-    
-    debouncedfetch(e.target.value)
+movie_input.addEventListener('input', async (e)=>{
+    debouncedfetch(e.target.value)   
 
 })
+
+function suggestionclickhander(){
+    document.querySelectorAll('.suggested-item').forEach((item)=>{
+        item.addEventListener('click',(e)=>{
+             movie_input.value=e.target.textContent;
+            // console.log(e.target.textContent)
+            hidesuggestions();
+        })
+    })
+}
+
+function hidesuggestions(){
+    suggestion_div.classList.remove('active')
+    suggestion_div.innerHTML=''
+    currentsuggestions=[]
+    selecteditem=-1
+}
+
+
