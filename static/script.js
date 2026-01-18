@@ -7,8 +7,21 @@ let currentsuggestions=[]
 const movie_input=document.querySelector('input')
 let selected_item=-1;
 
+window.onload=getstat()
 // submiting into the /submit endpoint fo the api
+async function getstat(){
+    const response= await fetch("/analytics")
+    const data= await response.json()
 
+    document.getElementById('statscontent').innerHTML=`<p> The total searches made were ${data.total_searches}</p> 
+    <p>The most popular movies are :</p>
+     <ul>
+            ${data.popular_movies.slice(0, 5).map(m => 
+                `<li>${m.movie} (${m.searches} times)</li>`
+            ).join('')}
+        </ul>
+`
+}
 form.addEventListener('submit',async (e)=>{
     e.preventDefault();
     if (ul_id.children.length>0){

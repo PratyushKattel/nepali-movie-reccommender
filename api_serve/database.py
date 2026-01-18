@@ -26,7 +26,7 @@ class SearchHistory(Base):
 
 def init_db():
     Base.metadata.create_all(bind=engine)
-    print("Alll the tables have been created")
+    print("All the tables have been created")
 
 def get_db():
     db=sessionlocal()
