@@ -1,4 +1,4 @@
-# Project Name
+# Movie Reccomender
 A nepali movie reccomender based on cosine similarity, between the casts,actor,directors,genre and description of the movie
 
 This project offers two ways to interact with the application: as a **Streamlit Dashboard** or via a **FastAPI File Response** service.
