@@ -1,2 +1,3 @@
 .env
 api_serve/__pycache__
+.movie_reccomender.db
