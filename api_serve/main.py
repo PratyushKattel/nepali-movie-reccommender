@@ -94,6 +94,7 @@ async def get_analytics(db:Session=Depends(get_db)):
     ).group_by(SearchHistory.movie_searched)\
     .order_by(func.count(SearchHistory.movie_searched).desc())\
     .limit(10)\
+    .all()
 
     return{
         "total_searches":total_movies,

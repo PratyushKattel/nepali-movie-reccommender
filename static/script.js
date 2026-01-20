@@ -99,7 +99,7 @@ catch(error){
 }}
 
 
-function displaysuggestions(suggestions){
+function displaysuggestionds(suggestions){
     if( suggestions.length==0){
         suggestion_div.classList.remove('active')
         suggestion_div.innerHTML=''
